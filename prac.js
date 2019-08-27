@@ -32,8 +32,7 @@ function same(arr1, arr2){
     if(!(key ** 2 in freqCounterTwo)){
       return false 
     }
-    console.log(freqCounterTwo[key**2],freqCounterOne[key])
-    if(freqCounterTwo[key**2] !== freqCounterOne[key]){
+     if(freqCounterTwo[key**2] !== freqCounterOne[key]){
       return false
     }
   }

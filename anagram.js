@@ -1,3 +1,5 @@
+const str1 = 'texttwistime'
+const str2 = 'timewisttext'
 // Time Complexity (0n)
 function anagram(str1,str2){
     // check if the two strings are not of same length, return false
@@ -14,7 +16,7 @@ function anagram(str1,str2){
 
     // loop over the second chars and remove each char that matches as key in hashtable
     // it takes 0(n) to loop over each string
-    // it takes 0(1) to insert each char to obj key
+    // it takes 0(1) to remove each char to obj key
     for(string of str2){
         obj[string] ? obj[string] -= 1 : obj[string] = 1
     }
@@ -38,4 +40,31 @@ function anagram(str1,str2){
 
     // 0(n) + 0(1) + 0(n) + 0(1) + 0(n) + 0(1) + 0(1) = 0(3n) + 0(3) = 0(n)
 }
-console.log(anagram('awesome','awesom'))
+
+const resulst = anagram(str1,str2)
+
+function validAnagram(str1,str2){
+    if(str1.length !== str2.length) return false;
+
+    const lookUp = {}
+
+    for(let i = 0; i < str1.length; i++){
+        let char = str1[i]
+        //add each char to the loopkup hashtable
+        lookUp[char] ? lookUp[char] += 1 : lookUp[char] = 1
+    }
+
+    for(let i = 0; i < str2.length; i++){
+        let char = str2[i]
+        if(!lookUp[char]){
+            return false
+        } else {
+            lookUp[char] -= 1
+        }
+    }
+ return true
+}
+
+const result2 = validAnagram(str1,str2)
+
+console.log(resulst, result2)
