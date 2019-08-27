@@ -1,25 +1,43 @@
-function isSame(arr1, arr2) {
-    //check if both arrays have same length, return false if not
-    if(arr1.length !== arr2.length) return false
-    // create hashtable to store the unique value in first array
-    let uniqObj = {}
-    // loop through each element and store the squared value to hash table
-    for (let i = 0; i < arr1.length; i++) {
-        let num = arr1[i] //store each number in variable
-        uniqObj[num*num] ? uniqObj[num] += 1 : uniqObj[num*num] = 1 // set the num var as the default hash key, evaulates to true hence using teriary operator we square the value of num
-    }
-    // compare the looped squared value to the already squared array
-    let arr = Object.keys(uniqObj)
-    let result = true
 
-    for(let i = 0; i < arr2.length; i++){
-        let num = arr2[i]
-        if(Number(arr[i]) != num){
-            result = false
-        }
-
+// Time Complexity - N^2
+function isSame(arr1,arr2){
+     for(let i = 0; i < arr1.length; i++){
+        let num = arr1[i]*arr1[i]
+              let correctIndex = arr2.indexOf(num)
+            if(correctIndex === -1){
+              return false
+            }
+            arr2.splice(correctIndex,1);
     }
-  return result
+ return true
+ }
+isSame([1, 2, 1], [4, 4, 1]) //false
+
+// Refactored Time Complexity O(n)
+function same(arr1, arr2){
+  if(arr1.length !== arr2.length) return false;
+
+  let freqCounterOne = {}
+  let freqCounterTwo = {}
+
+  for(val of arr1){
+    freqCounterOne[val] ? freqCounterOne[val] += 1 : freqCounterOne[val] = 1 
+  }
+
+  for(val of arr2) {
+    freqCounterTwo[val] ? freqCounterTwo[val] += 1 : freqCounterTwo[val] = 1
+  }
+
+  for(let key in freqCounterOne){
+    if(!(key ** 2 in freqCounterTwo)){
+      return false 
+    }
+    console.log(freqCounterTwo[key**2],freqCounterOne[key])
+    if(freqCounterTwo[key**2] !== freqCounterOne[key]){
+      return false
+    }
+  }
+  return true
 }
 
-console.log(isSame([2, 4, 6, 8], [4, 16, 36, 64]))
+same([1,2,3,4],[16,9,1,4]) // true
